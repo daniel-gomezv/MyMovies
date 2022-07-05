@@ -1,30 +1,39 @@
-import React,{FC} from 'react';
-import { View, Text } from 'react-native';
+import React,{FC,useContext} from 'react';
+import { View, Text,StyleSheet, TextStyle ,TextInput} from 'react-native';
+import Container from '../components/Container';
+import ThemeContext from '../Context/ThemeContext';
 
-const LoginScreen: React.FC = () => {
+
+interface Props {
+    navigation: any;
+   
+  }
+
+
+const LoginScreen: React.FC<Props> = ({
+    navigation,
+}) =>{
  
+   const theme = useContext(ThemeContext);
+ 
+
     return(
-     <View>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-        <Text> Blank Pages</Text>
-     </View>
+
+        <Container navigation={navigation} >
+            <Text style={[theme.title,styles.title]}>Iniciar sesion</Text>
+           
+        </Container>
+
     )
 }
 
 export default LoginScreen;
 
+
+const styles = StyleSheet.create({
+    title:{
+        textAlign:'center',
+    },
+    
+    
+});
