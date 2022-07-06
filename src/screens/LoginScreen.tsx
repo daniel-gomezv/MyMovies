@@ -1,8 +1,9 @@
-import React,{FC,useContext} from 'react';
-import { View, Text,StyleSheet, TextStyle ,TextInput,TouchableOpacity} from 'react-native';
+import React,{FC,useContext,useState} from 'react';
+import { View, Text,StyleSheet, Image, TextStyle ,TextInput,TouchableOpacity} from 'react-native';
 import Container from '../components/Container';
 import ThemeContext from '../Context/ThemeContext';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import validator from 'validator';
 
 interface Props {
     navigation: any;
@@ -10,70 +11,75 @@ interface Props {
   }
 
 
-const LoginScreen: React.FC<Props> = ({
-    navigation,
-}) =>{
+  interface loginInterface{
+    username: string,
+    password: string,
+  };
+
+    const LoginScreen: React.FC<Props> = ({
+        navigation,
+    }) =>{
  
    const theme = useContext(ThemeContext);
+   const [userEmail, setUserEmail] = useState<string>("");
+   const [userPassword, setUserPassword] = useState<string>("");
+   const [textAlert, setTextAler] = useState<string>("");
+
+   const getUserEmail = (userEml: string) => {
+       setUserEmail(userEml);
+       (validator.isEmail(userEmail)) && setTextAler('');
+    }
+
+    const getUserPassword = (userPass: string) =>{
+       setUserPassword(userPass);
+       (!validator.isEmpty(userPass)) && setTextAler('');
+   }
+
+   const LoginRequest = () => {
+
+       (!validator.isEmail(userEmail)) ? setTextAler('Ingrese un correo electronico valido.') : setTextAler('');
+       (validator.isEmpty(userEmail) || validator.isEmpty(userPassword) ) && setTextAler('Es necesario completar todos los campos.');
+
+        let bodyRequest:loginInterface = {
+            username: userEmail,
+            password: userPassword
+        };
+
+
+        
+
+   }
  
 
     return(
 
         <Container navigation={navigation} >
+            <Image source={require('../assets/img/logo.png')} style={styles.imgLogo} />
             
-            <Text style={[theme.title,styles.title]}>Iniciar sesion</Text>
             <TextInput
-                style={{
-                    height: 40,
-                    margin: 12,
-                    borderWidth: 1,
-                    padding: 10,
-                    borderBottomColor:'#f69411',
-                    color:'#FFF'
-                }}
-                placeholderTextColor={'#fff'}
+                style={theme.TextInput}
+                placeholderTextColor={theme.primaryColor}
                 placeholder="Correo electrónico"
                 keyboardType="email-address"
+                onChangeText={getUserEmail}
             />
 
             <TextInput
-                style={{
-                    height: 40,
-                    margin: 12,
-                    borderWidth: 1,
-                    padding: 10,
-                    borderBottomColor:'#f69411',
-                    color:'#FFF'
-                }}
-                placeholderTextColor={'#fff'}
+                style={theme.TextInput}
+                placeholderTextColor={theme.primaryColor}
                 placeholder="Contraseña"
                 keyboardType="default"
                 secureTextEntry={true}
+                onChangeText={getUserPassword}
             />
 
-           
+            <Text style={theme.styleAlert}>{textAlert}</Text>
+
             <TouchableOpacity
-                style={{ 
-                    backgroundColor: '#f69411',
-                    padding: wp('3.5%'),
-                    alignItems: "center",
-                    borderRadius: 20,
-                    shadowColor: '#f69411',
-                    shadowOffset: {
-                        width: 0,
-                        height: 3,
-                    },
-                    shadowOpacity: 0.27,
-                    shadowRadius: 4.65,
-                    elevation: 3,
-                }}
-                
-                onPress={() => {
-                  
-                  }}
-                  
+                style={theme.btn}
+                onPress={LoginRequest}  
             >
-                <Text style={[theme.text,styles.title]} >Entrar</Text>
+                <Text style={[theme.text,styles.title]} >Iniciar sesion</Text>
             </TouchableOpacity>
     
         </Container>
@@ -88,6 +94,10 @@ const styles = StyleSheet.create({
     title:{
         textAlign:'center',
     },
+    imgLogo:{
+        width: wp('100%'),
+        height: wp('30%'),
+    }
     
     
 });
