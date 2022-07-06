@@ -20,7 +20,8 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
         <Container navigation={navigation} >
 
           <Text style={defaultContext.title}>Mas popular</Text>
-          
+          <Text style={defaultContext.title}>Mas visto</Text>
+
          
         </Container>
 
