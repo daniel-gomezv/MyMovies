@@ -1,18 +1,19 @@
-import React,{FC,useContext,useState} from 'react';
-import { View, Text,StyleSheet, Image, TextStyle ,TextInput,TouchableOpacity} from 'react-native';
+import React,{FC,useContext,useState,useEffect} from 'react';
+import { View, Text,StyleSheet, Image ,TextInput,TouchableOpacity} from 'react-native';
 import Container from '../components/Container';
 import ThemeContext from '../Context/ThemeContext';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import validator from 'validator';
+import axios from 'axios';
+import {storageSave} from '../functions/Storage';
 
 interface Props {
     navigation: any;
    
   }
 
-
   interface loginInterface{
-    username: string,
+    email: string,
     password: string,
   };
 
@@ -41,15 +42,24 @@ interface Props {
        (validator.isEmpty(userEmail) || validator.isEmpty(userPassword) ) && setTextAler('Es necesario completar todos los campos.');
 
         let bodyRequest:loginInterface = {
-            username: userEmail,
+            email: userEmail,
             password: userPassword
         };
 
+        if(textAlert == ''){
+                
+                axios({
+                  method: 'post',
+                  url: 'https://reqres.in/api/login',
+                  data: bodyRequest
+                 }).then((resultAxios) => {
+                    storageSave('Token',resultAxios.data)
+                }).catch(function (error) {
+                    console.log(error)
+                });
+        }
 
-        
-
-   }
- 
+   } 
 
     return(
 

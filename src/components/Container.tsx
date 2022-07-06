@@ -31,13 +31,13 @@ const Container: React.FC<Props> = ({
 
 
     return(
-        <ThemeContext.Provider value={objectTheme}>
+    
                 <View style={{ ...style , ...objectTheme.background}} >
                     <View style={{ width: wp("90%") }}>
                         {children}
                     </View>
                 </View>
-         </ThemeContext.Provider>
+         
     )
 }
 
