@@ -6,7 +6,7 @@ const movies = {
     properties: {
         adult: 'bool',
         backdrop_path: "string",
-        genre_ids: 'list',
+        genre_ids: 'data',
         id: 'int',
         original_language: "string",
         original_title: "string",
@@ -31,6 +31,10 @@ const movies = {
   };
 
 
+  const realm = new Realm({ schema: [
+    movies,dbMovies
+  ]});
+
 
   export const getMoviesFilter = (filter:string) => {
     const movies = Realm.objects('Movies').filtered('type = ' + filter);
@@ -41,19 +45,9 @@ const movies = {
 
   export const SaveMovies = (obj:object) => {
     
-    Realm.open({schema: [movies, dbMovies]})
-    .then(realm => {
-      // Create Realm objects and write to local storage
-      realm.write(() => {
-        const movie = realm.create('movies', obj);
+    realm.write(() => {
+        const movie = realm.create('Movies', obj);
       });
-  
-      realm.close();
-    })
-    .catch(error => {
-      console.log(error);
-    });
-
 
   }
   
