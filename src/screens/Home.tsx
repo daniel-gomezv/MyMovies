@@ -1,9 +1,10 @@
 import React,{FC,useContext} from 'react';
-import { View, Text,StyleSheet, Image ,TextInput,TouchableOpacity} from 'react-native';
+import { View, Text,StyleSheet, Image ,TextInput,TouchableOpacity,ScrollView} from 'react-native';
 import Container from '../components/Container';
 import ThemeContext from '../Context/ThemeContext';
 import MovieHomeContext from '../Context/MovieHomeContext';
 import axios from 'axios';
+import Moviecard from '../components/Moviecard';
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
@@ -25,19 +26,25 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
         
         
     const defaultContext = useContext(ThemeContext);
+    const MovieHomeDefault = useContext(MovieHomeContext);
 
    
 
     return(
-        <MovieHomeContext.Provider value={{}}>
+    <ScrollView style={defaultContext.background}>
+        <MovieHomeContext.Provider value={MovieHomeDefault}>
                 <Container navigation={navigation} >
+                        <Text style={defaultContext.title}>Estrenos</Text>
+                            <Moviecard type='Popular'/>
 
-                <Text style={defaultContext.title}>Mas popular</Text>
+                        <Text style={defaultContext.title}>Mas visto</Text>
+                            <Moviecard type='TopRated'/>
 
-                <Text style={defaultContext.title}>Mas visto</Text>
-                
+                        <Text style={defaultContext.title}>Tendencias</Text>
+                            <Moviecard type='Popular'/>
                 </Container>
         </MovieHomeContext.Provider>
+    </ScrollView>
     )
 }
 

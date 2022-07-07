@@ -3,10 +3,11 @@ const Realm = require('realm');
 
 const movies = {
     name: 'Movies',
+    primaryKey:'id',
     properties: {
         adult: 'bool',
         backdrop_path: "string",
-        genre_ids: 'data',
+        genre_ids: 'int[]',
         id: 'int',
         original_language: "string",
         original_title: "string",
@@ -36,18 +37,28 @@ const movies = {
   ]});
 
 
-  export const getMoviesFilter = (filter:string) => {
-    const movies = Realm.objects('Movies').filtered('type = ' + filter);
-
-    return movies;
+  export const getMoviesFilter = (filter:string = '') => {
     
+    const movies = realm.objects('Movies');
+    
+    if(filter != ''){
+         return movies.filtered("type == '" + filter + "'");
+    }else{
+        return movies;
+    }
   }
 
   export const SaveMovies = (obj:object) => {
     
-    realm.write(() => {
-        const movie = realm.create('Movies', obj);
-      });
+    try {
+        realm.write(() => {
+            const movie = realm.create('Movies', obj);
+          });
+
+    } catch (error) {
+        
+    }
+  
 
   }
   
