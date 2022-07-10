@@ -1,4 +1,4 @@
-import React,{FC,useContext,use} from 'react';
+import React,{FC,useContext} from 'react';
 import { View, Text,StyleSheet, Image ,TextInput,TouchableOpacity,FlatList,SafeAreaView} from 'react-native';
 import ThemeContext from '../Context/ThemeContext';
 import MovieHomeContext from '../Context/MovieHomeContext';
@@ -11,42 +11,31 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
    
 
-    const Moviecard: React.FC<Props> = ({
+    const Tvcard: React.FC<Props> = ({
         filter='',
-        navigation
+        navigation,
     }) =>{
  
     
     const theme = useContext(ThemeContext);
     const MovieHome = useContext(MovieHomeContext);
 
-
-    const detailsMovie = (obj:object) =>{  
-      
-        navigation.navigate('DetailsMovie', JSON.stringify(obj));
-    }
-
     
 
     return(
         <SafeAreaView style={styles.container}>
             <FlatList
-             showsVerticalScrollIndicator={false}
-             showsHorizontalScrollIndicator={false}
-            data={MovieHome.getMoviesFilter(filter)}
+            data={MovieHome.getTvFilter(filter)}
             horizontal={true}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => {
                 try {
                     
                     return (
-
-                        <TouchableOpacity
-                        onPress={() => {
-                            detailsMovie(item);
-                        }}
-                        >
+                        <View>
                             <Image source={{ uri: item.poster_path}}   style={{width: 150, height: 200,  resizeMode: 'contain'}} />
-                        </TouchableOpacity>
+                        </View>
                     )
                 } catch (error) {
                     
@@ -57,7 +46,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
     )
 }
 
-export default Moviecard;
+export default Tvcard;
 
 
 const styles = StyleSheet.create({

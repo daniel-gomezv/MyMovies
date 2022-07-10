@@ -1,22 +1,17 @@
 import React,{useState,useContext} from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "../screens/Home";
 import { Image} from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import ThemeContext from '../Context/ThemeContext';
+
+//****** Import Stacks ******//
+import 
+  Stack
+from './Stacks'
+
 
 const Tab = createBottomTabNavigator();
 
 const NavigationTab: React.FC = () => {
-
-
-  let headerContent:any ={
-    headerTitle: props => <Image source={require('../assets/img/logo.png')}  style={{  width: wp('40'), height: wp('20')}}/>,
-    headerStyle: {
-      backgroundColor: '#000',    
-    }
-  };
-
 
   const defaultContext = useContext(ThemeContext);
 
@@ -26,6 +21,7 @@ const NavigationTab: React.FC = () => {
     
     <Tab.Navigator
     screenOptions={({ route }) => ({
+      headerShown: false ,
       tabBarIcon: ({ focused, color, size }) => {
         let iconName:string = './src/assets/img/logo.png';
 
@@ -58,10 +54,10 @@ const NavigationTab: React.FC = () => {
     
 
     >
-      <Tab.Screen name="Home" component={Home}    options={headerContent}/>
-      <Tab.Screen name="Popular" component={Home} options={headerContent}/>
-      <Tab.Screen name="Buscar" component={Home}  options={headerContent}/>
-      <Tab.Screen name="Random" component={Home}  options={headerContent}/>
+      <Tab.Screen name="Home" component={Stack}    />
+      <Tab.Screen name="Popular" component={Stack} />
+      <Tab.Screen name="Buscar" component={Stack}  />
+      <Tab.Screen name="Random" component={Stack}  />
     </Tab.Navigator>
   );
 }

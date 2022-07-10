@@ -23,17 +23,52 @@ const movies = {
     }
   };
 
+
+  const Tv = {
+    name: 'Tv',
+    primaryKey:'id',
+    properties: {
+        backdrop_path: "string",
+        genre_ids: 'int[]',
+        id: 'int',
+        name: "string",
+        origin_country: "string[]",
+        original_language: "string",
+        overview : "string",
+        original_name: "string",
+        popularity: 'float',
+        poster_path: "string",
+        first_air_date: "date",
+        vote_average: 'float',
+        vote_count: 'int',
+        type:'string',
+    }
+  };
+
+
+  const Category = {
+    name: 'Category',
+    primaryKey:'id',
+    properties: {
+      name:'string',
+      id:'int',
+    }
+  };
+
+
   const dbMovies = {
     name: 'dbMovies',
     properties: {
       token:     'string',
       movies: 'Movies[]',
+      tv: 'Tv[]',
+      category: 'Category[]',
     }
   };
 
 
   const realm = new Realm({ schema: [
-    movies,dbMovies
+    movies,dbMovies,Tv,Category
   ]});
 
 
@@ -42,23 +77,44 @@ const movies = {
     const movies = realm.objects('Movies');
     
     if(filter != ''){
-         return movies.filtered("type == '" + filter + "'");
+         return movies.filtered("" + filter + "");
     }else{
         return movies;
     }
   }
 
-  export const SaveMovies = (obj:object) => {
+
+  export const getTvFilter = (filter:string = '') => {
+    
+    const tvShow = realm.objects('Tv');
+    
+    if(filter != ''){
+         return tvShow.filtered("" + filter +"");
+    }else{
+        return tvShow;
+    }
+  }
+
+
+  export const getCategory = () => {
+    
+    const tvShow = realm.objects('Category');
+    return tvShow;
+  }
+
+  export const SaveMovies = (obj:object,schema:string) => {
     
     try {
         realm.write(() => {
-            const movie = realm.create('Movies', obj);
+            const movie = realm.create(schema, obj);
           });
 
     } catch (error) {
-        
+        console.log(error);
     }
-  
+
+
+    
 
   }
   

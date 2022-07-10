@@ -9,18 +9,12 @@ interface Props {
     style:any;
   }
 
-interface Theme {
-    background : object,
-    title: object,
-    text: object
-    primaryColor:object,
-    secondaryColor:object
-}
+
 
 const Container: React.FC<Props> = ({
     navigation,
     children,
-    style = { backgroundColor: '#FFF' , flex: 1, alignItems: 'center', justifyContent: 'center' }
+    style = { backgroundColor: '#FFF' , flex: 1, alignItems: 'center', justifyContent: 'center',}
 }) =>{
 
     const defaultContext = useContext(ThemeContext);
