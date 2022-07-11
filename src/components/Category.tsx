@@ -4,7 +4,17 @@ import ThemeContext from '../Context/ThemeContext';
 import MovieHomeContext from '../Context/MovieHomeContext';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const Category: React.FC = () =>{
+
+interface Props {
+    filter?: string;
+
+}
+
+
+
+const Category: React.FC<Props> = ({
+    filter = ""
+}) =>{
  
     
     const theme = useContext(ThemeContext);
@@ -13,7 +23,7 @@ const Category: React.FC = () =>{
     return(
         <SafeAreaView>
             <View style={styles.container}>
-            { MovieHome.getCategory().map((item,index)=>{
+            { MovieHome.getCategory(filter).map((item,index)=>{
                 return (
                     <View key={item.id}>
                         <TouchableOpacity

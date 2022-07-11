@@ -5,7 +5,7 @@ import ThemeContext from '../Context/ThemeContext';
 
 //****** Import Stacks ******//
 import 
-  Stack
+  {Stacks,PremieresScreen,SearchScreen}
 from './Stacks'
 
 
@@ -29,14 +29,12 @@ const NavigationTab: React.FC = () => {
         return  <Image source={require('../assets/img/home.png')}  style={{  width: 25, height: 25}}/>
          
         
-        if(route.name === 'Popular')
-        return  <Image source={require('../assets/img/hot.png')}  style={{  width: 25, height: 25}}/>
+        if(route.name === 'Estrenos')
+        return  <Image source={require('../assets/img/premieres.png')}  style={{  width: 25, height: 25}}/>
 
         if(route.name === 'Buscar')
          return  <Image source={require('../assets/img/search.png')}  style={{  width: 25, height: 25}}/>
 
-         if(route.name === 'Random')
-         return  <Image source={require('../assets/img/random.png')}  style={{  width: 25, height: 25}}/>
        
       
       },
@@ -54,10 +52,10 @@ const NavigationTab: React.FC = () => {
     
 
     >
-      <Tab.Screen name="Home" component={Stack}    />
-      <Tab.Screen name="Popular" component={Stack} />
-      <Tab.Screen name="Buscar" component={Stack}  />
-      <Tab.Screen name="Random" component={Stack}  />
+      <Tab.Screen name="Home" component={Stacks}    />
+      <Tab.Screen name="Estrenos" component={PremieresScreen} />
+      <Tab.Screen name="Buscar" component={SearchScreen}  />
+      
     </Tab.Navigator>
   );
 }

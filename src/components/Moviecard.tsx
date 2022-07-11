@@ -29,11 +29,12 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
     
 
     return(
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView>
             <FlatList
              showsVerticalScrollIndicator={false}
              showsHorizontalScrollIndicator={false}
             data={MovieHome.getMoviesFilter(filter)}
+            initialNumToRender={10}
             horizontal={true}
             renderItem={({ item }) => {
                 try {
@@ -45,7 +46,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
                             detailsMovie(item);
                         }}
                         >
-                            <Image source={{ uri: item.poster_path}}   style={{width: 150, height: 200,  resizeMode: 'contain'}} />
+                            <Image source={{ uri: MovieHome.Movies.imglink + item.poster_path}}   style={{width: 150, height: 200,  resizeMode: 'contain'}} />
                         </TouchableOpacity>
                     )
                 } catch (error) {

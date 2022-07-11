@@ -5,10 +5,10 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 
 interface Props {
     children:any;
-    style:any;
-    aling:string; 
-    mt:number;
-    mb:number;
+    style?:any;
+    aling?:string; 
+    mt?:number;
+    mb?:number;
   }
 
   interface PropsStyles{

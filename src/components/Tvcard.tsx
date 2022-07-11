@@ -21,6 +21,11 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
     const MovieHome = useContext(MovieHomeContext);
 
     
+     const detailsMovie = (obj:object) =>{  
+      
+        navigation.navigate('TvDetails', JSON.stringify(obj));
+    }
+
 
     return(
         <SafeAreaView style={styles.container}>
@@ -29,13 +34,20 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
             horizontal={true}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
+            initialNumToRender={10}
             renderItem={({ item }) => {
                 try {
                     
                     return (
-                        <View>
-                            <Image source={{ uri: item.poster_path}}   style={{width: 150, height: 200,  resizeMode: 'contain'}} />
-                        </View>
+                         <TouchableOpacity
+                        onPress={() => {
+                            detailsMovie(item);
+                        }}
+                        >
+                                <View>
+                                    <Image source={{ uri: MovieHome.Movies.imglink + item.poster_path}}   style={{width: 150, height: 200,  resizeMode: 'contain'}} />
+                                </View>
+                         </TouchableOpacity>
                     )
                 } catch (error) {
                     

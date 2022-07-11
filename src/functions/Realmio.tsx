@@ -96,11 +96,17 @@ const movies = {
   }
 
 
-  export const getCategory = () => {
+  export const getCategory = (filter:any = "",obj:object = {}) => {
     
-    const tvShow = realm.objects('Category');
-    return tvShow;
+    const Cat = realm.objects('Category');
+
+    if(filter == ""){
+      return Cat;
+    }else{
+      return Cat.filtered(filter);
+    }
   }
+
 
   export const SaveMovies = (obj:object,schema:string) => {
     

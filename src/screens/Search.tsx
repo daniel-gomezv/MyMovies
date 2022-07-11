@@ -1,11 +1,10 @@
 import React,{FC,useContext,useState,useEffect} from 'react';
-import { View, Text,StyleSheet, Image ,FlatList,TouchableOpacity,ScrollView,SafeAreaView} from 'react-native';
+import { View, Text,StyleSheet, TextInput, Image ,FlatList,TouchableOpacity,ScrollView,SafeAreaView} from 'react-native';
 import Container from '../components/Container';
 import ThemeContext from '../Context/ThemeContext';
 import MovieHomeContext from '../Context/MovieHomeContext';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Block from '../components/Block';
-import {SaveMovies} from '../functions/Realmio'
 
 
     interface Props {
@@ -13,56 +12,73 @@ import {SaveMovies} from '../functions/Realmio'
         route: any;
     }
 
- 
-
-    const List: React.FC<Props> = ({
+    const Search: React.FC<Props> = ({
         navigation,
         route,
     }) =>{
            
-        
-        
+
         const theme = useContext(ThemeContext);
         const Movie = useContext(MovieHomeContext);
-        const data = route.params;
+        const [searchTerm, setSearchTerm] = useState("a")
         const [content, setContent] = useState([])
+        const [isloading, setIsloading] = useState(true)
     
+        const SearchMovie = (text:string ) => {
+            if(text != ""){
+                setSearchTerm(text);
+                setIsloading(true);
+            }
+        }
 
         const detailsMovie = (obj:object) =>{  
       
             navigation.navigate('DetailsMovie', JSON.stringify(obj));
+            
         }
 
 
-        useEffect(() => {
-         
-            if(data.shema == "Tv"){
-                setContent(Movie.getTvFilter(data.filter));
-            }else{
-                setContent(Movie.getMoviesFilter(data.filter));
-            }
+         useEffect(() => {
+                const timer = setTimeout(() =>  Movie.requestAxios(Movie.moviesRequest.Search + searchTerm,'get').then(resp => {
+              
+                    setContent(resp.data.results)
+                    setIsloading(false);
+                        }).catch(err => {
+                    setIsloading(false);
+                        
+                       
+                    }), 800);
 
-        }, [])
+                return () => clearTimeout(timer);
+            }, [searchTerm]);
 
 
-        const loadMore = () => {
-
-            Movie.loadmore(data)
-          
-            if(data.shema == "Tv"){
-                setContent(Movie.getTvFilter(data.filter));
-            }else{
-                setContent(Movie.getMoviesFilter(data.filter));
-            }
-
-        }
-
-        
-    
             return(
            
-                <Container>
-                                <FlatList
+                <Container style={styles.customContainer}>
+                  
+                     <View style={styles.inputContainer} >
+                            <TextInput
+                                style={theme.TextInput}
+                                placeholderTextColor={theme.primaryColor}
+                                placeholder="Buscar..."
+                                onChangeText={SearchMovie}
+                            />
+
+                            {
+                                (isloading) &&
+                                    <View style={styles.icon3}>
+                                    <Image source={require('../assets/img/spinner.gif')} style={{ width: wp(10), height: wp(10) }} />
+                                     </View> 
+                            }
+                                                                
+
+
+                        </View>
+                       
+                    
+                
+                     <FlatList
                                 showsVerticalScrollIndicator={false}
                                 showsHorizontalScrollIndicator={false}
                                 data={content}
@@ -88,20 +104,27 @@ import {SaveMovies} from '../functions/Realmio'
                                         
                                     }}}
                                 keyExtractor={(item) => item.id}
-                                onEndReached={loadMore}
-                                onEndReachedThreshold={0.7}
+                            
                                 />
                 </Container>   
           
             )
 }
 
-export default List;
+export default Search;
 
 
 const styles = StyleSheet.create({
     
+    
+    customContainer: { backgroundColor: '#000' , flex:1,  alignItems: 'center', justifyContent: 'space-between'},
     imagesPoster: {width: wp('28%'), height: wp('40%'), resizeMode: 'stretch'},
-    block:{ maxHeight:wp('50%'), marginRight:10, justifyContent:'center'}
-   
+    block:{ maxHeight:wp('50%'), marginRight:10, justifyContent:'center'},
+    icon3: {
+        paddingTop: wp(3),
+        marginRight: wp(3),
+        position: 'absolute',
+        zIndex: 2,
+        right: 0,
+      },
 });

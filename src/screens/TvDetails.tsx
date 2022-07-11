@@ -6,7 +6,7 @@ import ThemeContext from '../Context/ThemeContext';
 import MovieHomeContext from '../Context/MovieHomeContext';
 import axios from 'axios';
 import Block from '../components/Block';
-import Moviecard from '../components/Moviecard';
+import Tvcard from '../components/Tvcard';
 import {formatDate,rateVote,filterMap} from '../functions/Functions';
 import Category from '../components/Category';
 
@@ -107,7 +107,7 @@ import Category from '../components/Category';
                                             </TouchableOpacity>
                                         </Block>
                                         <Block>
-                                            <Moviecard filter="type == 'Popular'" navigation={navigation}/>
+                                             <Tvcard filter="" navigation={navigation}/>
                                         </Block>
                                 </Block>
                             

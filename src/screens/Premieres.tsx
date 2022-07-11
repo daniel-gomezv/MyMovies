@@ -14,8 +14,9 @@ import {SaveMovies} from '../functions/Realmio'
     }
 
  
+     let data:obj =  {endpoint: "Popular", filter: "type == 'Popular'", type: "Popular", shema:"Moviews"}
 
-    const List: React.FC<Props> = ({
+    const Premieres: React.FC<Props> = ({
         navigation,
         route,
     }) =>{
@@ -24,44 +25,41 @@ import {SaveMovies} from '../functions/Realmio'
         
         const theme = useContext(ThemeContext);
         const Movie = useContext(MovieHomeContext);
-        const data = route.params;
+
         const [content, setContent] = useState([])
     
 
-        const detailsMovie = (obj:object) =>{  
-      
-            navigation.navigate('DetailsMovie', JSON.stringify(obj));
-        }
-
-
         useEffect(() => {
          
-            if(data.shema == "Tv"){
-                setContent(Movie.getTvFilter(data.filter));
-            }else{
+         
                 setContent(Movie.getMoviesFilter(data.filter));
-            }
-
+       
         }, [])
 
 
         const loadMore = () => {
 
-            Movie.loadmore(data)
-          
-            if(data.shema == "Tv"){
-                setContent(Movie.getTvFilter(data.filter));
-            }else{
-                setContent(Movie.getMoviesFilter(data.filter));
-            }
+        
+            setContent(Movie.getMoviesFilter(data.filter));
+            
 
         }
 
         
-    
+         const detailsMovie = (obj:object) =>{  
+      
+            navigation.navigate('DetailsMovie', JSON.stringify(obj));
+            
+        }
+        
             return(
            
                 <Container>
+
+                    <Block mt={hp('10%')}>
+                        <Text style={theme.title}>Estrenos</Text>
+                    </Block>
+
                                 <FlatList
                                 showsVerticalScrollIndicator={false}
                                 showsHorizontalScrollIndicator={false}
@@ -96,7 +94,7 @@ import {SaveMovies} from '../functions/Realmio'
             )
 }
 
-export default List;
+export default Premieres;
 
 
 const styles = StyleSheet.create({

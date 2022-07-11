@@ -3,7 +3,6 @@ import { View, Text,StyleSheet, Image ,TextInput,TouchableOpacity,ScrollView} fr
 import Container from '../components/Container';
 import ThemeContext from '../Context/ThemeContext';
 import MovieHomeContext from '../Context/MovieHomeContext';
-import axios from 'axios';
 import Moviecard from '../components/Moviecard';
 import Tvcard from '../components/Tvcard';
 import Block from '../components/Block';
@@ -27,21 +26,20 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
     const MovieHomeDefault = useContext(MovieHomeContext);
 
 
-    const inRute = () =>
-     navigation.navigate({"name":"List"})
+    const inRute = (type:string,filter:string,endpoint:string, shema:string) =>
+     navigation.navigate("List",{ filter: filter, type:type , endpoint: endpoint, shema:shema})
    
 
     return(
     <ScrollView style={defaultContext.background}>
         <MovieHomeContext.Provider value={MovieHomeDefault}>
                 <Container navigation={navigation} >
-
                          <Block  mt={hp('1%')} mb={hp('5%')}>
                         <Text style={defaultContext.small}>Lo más popular</Text>
 
                         <Block  mt={1} style={styles.blockContentCustom}>
                             <Text style={defaultContext.subtitle}>Peliculas</Text>
-                            <TouchableOpacity onPress={inRute}>
+                            <TouchableOpacity onPress={ () => inRute("Popular","type == 'Popular'", "Popular", "Movies")}>
                                 <Image source={require('../assets/img/goto.png')}   style={styles.goImages}/>
                             </TouchableOpacity>
                         </Block>
@@ -52,7 +50,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
                 <Text style={defaultContext.small}>Lo más popular</Text>
                          <Block  mt={1} style={styles.blockContentCustom}>
                             <Text style={defaultContext.subtitle}>Programas</Text>
-                            <TouchableOpacity onPress={inRute}>
+                            <TouchableOpacity onPress={ () => inRute("Popular", "type == 'Popular'", "Tvpopular", "Tv")}>
                                 <Image source={require('../assets/img/goto.png')}   style={styles.goImages}/>
                             </TouchableOpacity>
                         </Block>
@@ -63,7 +61,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
                 <Text style={defaultContext.small}>Lo más popular</Text>
                         <Block  mt={1} style={styles.blockContentCustom}>
                         <Text style={defaultContext.subtitle}>Tendencias</Text>
-                            <TouchableOpacity onPress={inRute}>
+                        <TouchableOpacity onPress={ () => inRute("TopRated","type == 'TopRated'","Toprated", "Movies")}>
                                 <Image source={require('../assets/img/goto.png')}   style={styles.goImages}/>
                             </TouchableOpacity>
                         </Block>

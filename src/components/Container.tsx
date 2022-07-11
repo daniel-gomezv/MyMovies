@@ -4,9 +4,9 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import ThemeContext from '../Context/ThemeContext';
 
 interface Props {
-    navigation:any;
+    navigation?:any;
     children:any;
-    style:any;
+    style?:any;
   }
 
 
