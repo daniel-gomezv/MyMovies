@@ -17,10 +17,10 @@ interface ThemeContextData {
   
   const defaultState:ThemeContextData = {
     background : { backgroundColor: '#000'},
-    title: { color: '#FFFFFF', fontSize: wp('8%')},
-    subtitle: { color: '#FFFFFF', fontSize: wp('6%')},
-    text: { color: '#FFFFFF'},
-    small: { color: '#FFFFFF', fontSize: wp('3%')  },
+    title: { color: '#FFFFFF', fontSize: wp('8%'), fontFamily: 'Metropolis-Bold'},
+    subtitle: { color: '#FFFFFF', fontSize: wp('6%'),fontFamily: 'Metropolis-Bold'},
+    text: { color: '#FFFFFF',fontFamily: 'Metropolis-Bold'},
+    small: { color: '#FFFFFF', fontSize: wp('3%') ,fontFamily: 'Metropolis-Bold' },
     primaryColor:'#FFFFFF',
     secondaryColor:'#f69411',
     btn: {

@@ -1,13 +1,14 @@
 import 'react-native-gesture-handler';
 import React,{FC,useEffect,useContext,useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import {PublicScreen} from './src/Navigations/Stacks';
-import NavigationTab from './src/Navigations/NavigationTab';
-import ThemeContext from './src/Context/ThemeContext';
-import {isLogin} from './src/functions/Realmio';
+import {PublicScreen} from '../Navigations/Stacks';
+import NavigationTab from '../Navigations/NavigationTab';
+import ThemeContext from '../Context/ThemeContext';
+import {isLogin} from '../functions/Realmio';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
-const App: React.FC = () => {
+const PrivateNavigation: React.FC = () => {
 
   const defaultContext = useContext(ThemeContext);
 
@@ -19,19 +20,21 @@ const App: React.FC = () => {
     setAuthLogin(isLogin())
 
   }, [isLogin()])
+
+
     return(
       
-      <NavigationContainer>
+    
             <ThemeContext.Provider value={objectTheme}>
 
               
-                <PublicScreen /> 
+                <NavigationTab /> 
              
              
            
             </ThemeContext.Provider>
-      </NavigationContainer>
+    
     )
 }
 
-export default App;
+export default PrivateNavigation;

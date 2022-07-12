@@ -58,11 +58,10 @@ const movies = {
 
   const dbMovies = {
     name: 'dbMovies',
+    primaryKey:'id',
     properties: {
       token:     'string',
-      movies: 'Movies[]',
-      tv: 'Tv[]',
-      category: 'Category[]',
+      id: 'int'
     }
   };
 
@@ -122,5 +121,30 @@ const movies = {
 
     
 
+  }
+
+
+
+  export const saveToken = (token:string) => {
+    
+    try {
+        realm.write(() => {
+            const movie = realm.create("dbMovies", {token:token, id:1});
+          });
+
+    } catch (error) {
+        console.log(error);
+    }
+
+  }
+
+
+  export const isLogin = () => {
+    
+    const login = realm.objects('dbMovies');
+
+    const isLogin = (login.length > 0 ) ? true : false;
+
+    return isLogin;
   }
   

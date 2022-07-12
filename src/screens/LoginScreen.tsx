@@ -2,10 +2,10 @@ import React,{FC,useContext,useState,useEffect} from 'react';
 import { View, Text,StyleSheet, Image ,TextInput,TouchableOpacity} from 'react-native';
 import Container from '../components/Container';
 import ThemeContext from '../Context/ThemeContext';
+import {saveToken} from '../functions/Realmio';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import validator from 'validator';
 import axios from 'axios';
-import {storageSave} from '../functions/Storage';
 
 interface Props {
     navigation: any;
@@ -53,7 +53,8 @@ interface Props {
                   url: 'https://reqres.in/api/login',
                   data: bodyRequest
                  }).then((resultAxios) => {
-                    storageSave('Token',resultAxios.data)
+                    saveToken(resultAxios.data.token);
+                    navigation.navigate({name:'PrivateNavigation'});
                 }).catch(function (error) {
                     console.log(error)
                 });
