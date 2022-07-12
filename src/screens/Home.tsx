@@ -22,8 +22,9 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
  
         
         
-    const defaultContext = useContext(ThemeContext);
-    const MovieHomeDefault = useContext(MovieHomeContext);
+    const defaultContext:any = useContext(ThemeContext);
+    const MovieHomeDefault:any = useContext(MovieHomeContext);
+
 
 
     const inRute = (type:string,filter:string,endpoint:string, shema:string) =>

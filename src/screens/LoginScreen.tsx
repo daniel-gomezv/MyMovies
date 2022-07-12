@@ -54,7 +54,10 @@ interface Props {
                   data: bodyRequest
                  }).then((resultAxios) => {
                     saveToken(resultAxios.data.token);
-                    navigation.navigate({name:'PrivateNavigation'});
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'PrivateNavigation' }],
+                      });
                 }).catch(function (error) {
                     console.log(error)
                 });

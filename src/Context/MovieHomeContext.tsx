@@ -27,8 +27,8 @@ import {moviesRequest,Movies} from '../functions/config';
     }
   
     const MovieHomeContext = React.createContext(defaultState);
-  
     PreloaderData();
+  
     
     export const ProviderTheme = MovieHomeContext.Provider;
     export const ConsumerTheme = MovieHomeContext.Consumer;

@@ -1,4 +1,5 @@
 import React,{FC,useEffect,useState,useContext} from "react";
+
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from "../screens/Home";
 import List from "../screens/List";
@@ -6,25 +7,29 @@ import LoginScreen from "../screens/LoginScreen";
 import MovieDetails from "../screens/MovieDetails";
 import TvDetails from "../screens/TvDetails";
 import Search from "../screens/Search";
-import {Image,View} from "react-native";
+import {Image,View,TouchableOpacity} from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import ThemeContext from '../Context/ThemeContext';
 import Premieres from '../screens/Premieres';
 import PrivateNavigation from '../screens/PrivateNavigation';
-import {isLogin} from '../functions/Realmio';
+import {isLogin,cleanLogin} from '../functions/Realmio';
 
 const Stack = createNativeStackNavigator();
 const StackPremieres = createNativeStackNavigator();
 const StackSearch = createNativeStackNavigator();
 const StackPublic = createNativeStackNavigator();
 
+interface Props {
+    navigation: any;
+}
 
-export const PublicScreen: React.FC = () => {
+
+export const PublicScreen: React.FC<Props> = ({
+    navigation,
+}) =>{
 
     const theme = useContext(ThemeContext)
     const [authLogin, setAuthLogin] = useState(isLogin());
-
-    console.log(authLogin);
 
     return(
         
@@ -40,37 +45,9 @@ export const PublicScreen: React.FC = () => {
 }
 
 
-export const Stacks: React.FC = () => {
-
-    const theme = useContext(ThemeContext)
-
-    return(
-        
-        <Stack.Navigator initialRouteName="Login"
-        screenOptions={{ 
-            headerTitleStyle: {color:theme.primaryColor},
-            headerStyle: theme.background,
-            headerBackTitle: "Atras",
-            headerTintColor: theme.secondaryColor , 
-             headerTitle: props => 
-                    <View style={{ height: 200 }}>
-                    <Image source={require('../assets/img/logo.png')}  style={{  width: wp('30'), height: wp('10')}}/>
-                    </View>,    
-         }}
-        
-        >
-        
-            <Stack.Screen name="HomeMovies" component={Home}/>
-            <Stack.Screen name="List" component={List}   />
-            <Stack.Screen name="DetailsMovie" component={MovieDetails} />
-            <Stack.Screen name="Premieres" component={Premieres} />
-            <Stack.Screen name="TvDetails" component={TvDetails} />
-        </Stack.Navigator>
-
-    )
-}
-
-export const PremieresScreen: React.FC = () => {
+export const Stacks: React.FC<Props> = ({
+    navigation,
+}) =>{
 
     const theme = useContext(ThemeContext)
 
@@ -86,19 +63,88 @@ export const PremieresScreen: React.FC = () => {
                     <View style={{ height: 200 }}>
                     <Image source={require('../assets/img/logo.png')}  style={{  width: wp('30'), height: wp('10')}}/>
                     </View>,    
+            
+            headerRight: () => (
+                <TouchableOpacity onPress={ () => {
+                    cleanLogin(); 
+                    navigation.navigate('Login')
+                }}>
+                <Image source={require('../assets/img/orange.png')}  style={{  width: wp('6%'), height: wp('6%'), marginRight:wp('1%')}}/>
+                </TouchableOpacity>
+            ),
+            headerLeft: () => (
+                <TouchableOpacity onPress={ () => {
+
+                    navigation.navigate('Search')
+                }}>
+                <Image source={require('../assets/img/searchBlank.png')}  style={{  width: wp('6%'), height: wp('6%'), marginRight:wp('1%')}}/>
+                </TouchableOpacity>
+            ),
+         }}
+        
+        >
+        
+            <Stack.Screen name="HomeMovies" component={Home}/>
+            <Stack.Screen name="List" component={List}   />
+            <Stack.Screen name="DetailsMovie" component={MovieDetails} />
+            <Stack.Screen name="Premieres" component={Premieres} />
+            <Stack.Screen name="TvDetails" component={TvDetails} />
+            <Stack.Screen name="Search" component={Search} />
+        </Stack.Navigator>
+
+    )
+}
+
+export const PremieresScreen: React.FC<Props> = ({
+    navigation,
+}) =>{
+
+    const theme = useContext(ThemeContext)
+
+    return(
+        
+        <Stack.Navigator initialRouteName="HomeMovies"
+        screenOptions={{ 
+            headerTitleStyle: {color:theme.primaryColor},
+            headerStyle: theme.background,
+            headerBackTitle: "Atras",
+            headerTintColor: theme.secondaryColor , 
+             headerTitle: props => 
+                    <View style={{ height: 200 }}>
+                    <Image source={require('../assets/img/logo.png')}  style={{  width: wp('30'), height: wp('10')}}/>
+                    </View>,    
+                     headerRight: () => (
+                        <TouchableOpacity onPress={ () => {
+                            cleanLogin(); 
+                            navigation.navigate('Login')
+                        }}>
+                        <Image source={require('../assets/img/orange.png')}  style={{  width: wp('6%'), height: wp('6%'), marginRight:wp('1%')}}/>
+                        </TouchableOpacity>
+                    ),
+                    headerLeft: () => (
+                        <TouchableOpacity onPress={ () => {
+        
+                            navigation.navigate('Search')
+                        }}>
+                        <Image source={require('../assets/img/searchBlank.png')}  style={{  width: wp('6%'), height: wp('6%'), marginRight:wp('1%')}}/>
+                        </TouchableOpacity>
+                    ),
          }}
         
         >
             <StackPremieres.Screen name="Premieres" component={Premieres} />
             <StackPremieres.Screen name="List" component={List}   />
             <StackPremieres.Screen name="DetailsMovie" component={MovieDetails} />
+            <StackPremieres.Screen  name="Search" component={Search} />
         </Stack.Navigator>
 
     )
 }
 
 
-export const SearchScreen: React.FC = () => {
+export const SearchScreen: React.FC<Props> = ({
+    navigation,
+}) =>{
 
     const theme = useContext(ThemeContext)
 
@@ -114,6 +160,23 @@ export const SearchScreen: React.FC = () => {
                         <View style={{ height: 200 }}>
                         <Image source={require('../assets/img/logo.png')}  style={{  width: wp('30'), height: wp('10')}}/>
                         </View>,    
+                 headerRight: () => (
+                    <TouchableOpacity onPress={ () => {
+                        cleanLogin(); 
+                        navigation.navigate('Login')
+                    }}>
+                    <Image source={require('../assets/img/orange.png')}  style={{  width: wp('6%'), height: wp('6%'), marginRight:wp('1%')}}/>
+                    </TouchableOpacity>
+                ),
+
+                headerLeft: () => (
+                    <TouchableOpacity onPress={ () => {
+    
+                        navigation.navigate('Search')
+                    }}>
+                    <Image source={require('../assets/img/searchBlank.png')}  style={{  width: wp('6%'), height: wp('6%'), marginRight:wp('1%')}}/>
+                    </TouchableOpacity>
+                ),
             }}
             
             >

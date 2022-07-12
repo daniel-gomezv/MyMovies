@@ -5,6 +5,7 @@ import {PublicScreen} from './src/Navigations/Stacks';
 import NavigationTab from './src/Navigations/NavigationTab';
 import ThemeContext from './src/Context/ThemeContext';
 import {isLogin} from './src/functions/Realmio';
+import {PreloaderData} from './src/functions/Functions';
 
 
 const App: React.FC = () => {
@@ -15,7 +16,7 @@ const App: React.FC = () => {
   const [authLogin, setAuthLogin] = useState(isLogin());
 
   useEffect(() => {
-
+    PreloaderData();
     setAuthLogin(isLogin())
 
   }, [isLogin()])

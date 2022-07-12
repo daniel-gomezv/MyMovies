@@ -147,4 +147,16 @@ const movies = {
 
     return isLogin;
   }
+
+  export const cleanLogin = () => {
+    const Cat = realm.objects('Category');
+    const Movies = realm.objects('Movies');
+    const Tv = realm.objects('Tv');
+    const dbMovies = realm.objects('dbMovies');
+
+    realm.write(() => {
+      realm.deleteAll()
+    });
+    
+  }
   
