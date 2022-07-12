@@ -7,6 +7,7 @@ import ThemeContext from '../Context/ThemeContext';
 import {isLogin} from '../functions/Realmio';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const PrivateNavigation: React.FC = () => {
 
@@ -25,14 +26,14 @@ const PrivateNavigation: React.FC = () => {
     return(
       
     
+              
             <ThemeContext.Provider value={objectTheme}>
 
-              
                 <NavigationTab /> 
              
-             
-           
+
             </ThemeContext.Provider>
+        
     
     )
 }

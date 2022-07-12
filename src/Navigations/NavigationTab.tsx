@@ -2,7 +2,7 @@ import React,{useState,useContext} from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image} from 'react-native';
 import ThemeContext from '../Context/ThemeContext';
-
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 //****** Import Stacks ******//
 import 
   {Stacks,PremieresScreen,SearchScreen}
@@ -42,8 +42,7 @@ const NavigationTab: React.FC = () => {
       tabBarInactiveTintColor: objectTheme.primaryColor,
       tabBarStyle: {
         backgroundColor: objectTheme.secondaryColor,
-        borderTopRightRadius: 15,
-        borderTopLeftRadius: 15,
+       
       },
       headerShadowVisible: false,
       headerBackTitleVisible: false,
