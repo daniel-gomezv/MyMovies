@@ -72,24 +72,26 @@ export const Stacks: React.FC<Props> = ({
                 <Image source={require('../assets/img/orange.png')}  style={{  width: wp('6%'), height: wp('6%'), marginRight:wp('1%')}}/>
                 </TouchableOpacity>
             ),
-            headerLeft: () => (
-                <TouchableOpacity onPress={ () => {
-
-                    navigation.navigate('Search')
-                }}>
-                <Image source={require('../assets/img/searchBlank.png')}  style={{  width: wp('6%'), height: wp('6%'), marginRight:wp('1%')}}/>
-                </TouchableOpacity>
-            ),
+           
          }}
         
         >
         
-            <Stack.Screen name="HomeMovies" component={Home}/>
+            <Stack.Screen name="HomeMovies" component={Home} options={{
+                 headerLeft: () => (
+                    <TouchableOpacity onPress={ () => {
+    
+                        navigation.navigate('Search')
+                    }}>
+                    <Image source={require('../assets/img/searchBlank.png')}  style={{  width: wp('6%'), height: wp('6%'), marginRight:wp('1%')}}/>
+                    </TouchableOpacity>
+                ),
+            }}/>
             <Stack.Screen name="List" component={List}   />
             <Stack.Screen name="DetailsMovie" component={MovieDetails} />
             <Stack.Screen name="Premieres" component={Premieres} />
             <Stack.Screen name="TvDetails" component={TvDetails} />
-            <Stack.Screen name="Search" component={Search} />
+            <Stack.Screen name="Search" component={Search} options={{}}/>
         </Stack.Navigator>
 
     )
@@ -121,18 +123,20 @@ export const PremieresScreen: React.FC<Props> = ({
                         <Image source={require('../assets/img/orange.png')}  style={{  width: wp('6%'), height: wp('6%'), marginRight:wp('1%')}}/>
                         </TouchableOpacity>
                     ),
-                    headerLeft: () => (
-                        <TouchableOpacity onPress={ () => {
-        
-                            navigation.navigate('Search')
-                        }}>
-                        <Image source={require('../assets/img/searchBlank.png')}  style={{  width: wp('6%'), height: wp('6%'), marginRight:wp('1%')}}/>
-                        </TouchableOpacity>
-                    ),
+                   
          }}
         
         >
-            <StackPremieres.Screen name="Premieres" component={Premieres} />
+            <StackPremieres.Screen name="Premieres" component={Premieres} options={{
+                 headerLeft: () => (
+                    <TouchableOpacity onPress={ () => {
+    
+                        navigation.navigate('Search')
+                    }}>
+                    <Image source={require('../assets/img/searchBlank.png')}  style={{  width: wp('6%'), height: wp('6%'), marginRight:wp('1%')}}/>
+                    </TouchableOpacity>
+                ),
+            }}/>
             <StackPremieres.Screen name="List" component={List}   />
             <StackPremieres.Screen name="DetailsMovie" component={MovieDetails} />
             <StackPremieres.Screen  name="Search" component={Search} />
@@ -169,7 +173,12 @@ export const SearchScreen: React.FC<Props> = ({
                     </TouchableOpacity>
                 ),
 
-                headerLeft: () => (
+                
+            }}
+            
+            >
+            <StackSearch.Screen name="Search" component={Search} options={{
+                 headerLeft: () => (
                     <TouchableOpacity onPress={ () => {
     
                         navigation.navigate('Search')
@@ -177,10 +186,7 @@ export const SearchScreen: React.FC<Props> = ({
                     <Image source={require('../assets/img/searchBlank.png')}  style={{  width: wp('6%'), height: wp('6%'), marginRight:wp('1%')}}/>
                     </TouchableOpacity>
                 ),
-            }}
-            
-            >
-            <StackSearch.Screen name="Search" component={Search} />
+            }}/>
             <StackSearch.Screen name="List" component={List}   />
             <StackSearch.Screen name="DetailsMovie" component={MovieDetails} />
         </Stack.Navigator>
