@@ -73,7 +73,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
                 <Block  mt={hp('1%')} mb={hp('5%')}>
                     <Text style={defaultContext.subtitle}>Categorias</Text>
                     <Block>
-                        <Category />
+                        <Category navigation={navigation}/>
                     </Block>
                 </Block>
 

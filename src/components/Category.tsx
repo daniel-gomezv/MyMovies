@@ -7,18 +7,24 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 interface Props {
     filter?: string;
+    navigation?: any;
 
 }
 
 
 
 const Category: React.FC<Props> = ({
-    filter = ""
+    filter = "",
+    navigation
 }) =>{
  
     
     const theme = useContext(ThemeContext);
     const MovieHome = useContext(MovieHomeContext);
+
+    const getCategoryMovies = (idCategory:number) =>{
+        navigation.navigate('CategoryMovies', { idCategory : idCategory });
+    }
 
     return(
         <SafeAreaView>
@@ -28,6 +34,9 @@ const Category: React.FC<Props> = ({
                     <View key={item.id}>
                         <TouchableOpacity
                             style={[theme.btnSmall,styles.btn]}
+                            onPress={() => {
+                                getCategoryMovies(item.id);
+                            }}
                         >
                             <Text style={theme.small} >{item.name}</Text>
                         </TouchableOpacity>

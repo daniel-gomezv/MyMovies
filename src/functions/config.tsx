@@ -10,7 +10,9 @@ export const Movies = {
     tvPopular : '/tv/popular?language=es-Es',
     category : '/genre/movie/list?language=es-Es',
     search : '/search/movie?language=es-Es',
+    moviewCategory : '/discover/movie?language=es-Es',
 }
+
 
 export const moviesRequest = {
     Popular : `${Movies.endPoint}${Movies.popular}&api_key=${Movies.ApiKey}`,

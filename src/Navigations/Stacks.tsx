@@ -7,6 +7,7 @@ import LoginScreen from "../screens/LoginScreen";
 import MovieDetails from "../screens/MovieDetails";
 import TvDetails from "../screens/TvDetails";
 import Search from "../screens/Search";
+import CategoryMovies from "../screens/CategoryMovies";
 import {Image,View,TouchableOpacity} from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import ThemeContext from '../Context/ThemeContext';
@@ -91,6 +92,7 @@ export const Stacks: React.FC<Props> = ({
             <Stack.Screen name="DetailsMovie" component={MovieDetails} />
             <Stack.Screen name="Premieres" component={Premieres} />
             <Stack.Screen name="TvDetails" component={TvDetails} />
+            <Stack.Screen name="CategoryMovies" component={CategoryMovies} />
             <Stack.Screen name="Search" component={Search} options={{}}/>
         </Stack.Navigator>
 
@@ -140,6 +142,7 @@ export const PremieresScreen: React.FC<Props> = ({
             <StackPremieres.Screen name="List" component={List}   />
             <StackPremieres.Screen name="DetailsMovie" component={MovieDetails} />
             <StackPremieres.Screen  name="Search" component={Search} />
+            <StackPremieres.Screen  name="CategoryMovies" component={CategoryMovies} />
         </Stack.Navigator>
 
     )
@@ -189,6 +192,7 @@ export const SearchScreen: React.FC<Props> = ({
             }}/>
             <StackSearch.Screen name="List" component={List}   />
             <StackSearch.Screen name="DetailsMovie" component={MovieDetails} />
+            <StackSearch.Screen name="CategoryMovies" component={CategoryMovies} />
         </Stack.Navigator>
 
     )

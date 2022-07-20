@@ -90,7 +90,7 @@ import Category from '../components/Category';
                                         </Block>
 
                                         <Block>
-                                            <Category filter={filterMap(data.genre_ids,'id')}/>
+                                            <Category filter={filterMap(data.genre_ids,'id')} navigation={navigation} />
                                         </Block>
                                           
                                     </View>
